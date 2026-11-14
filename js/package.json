@@ -1,0 +1,14 @@
+{
+  "name": "@reworkio/autocare-heartbeat",
+  "version": "0.1.0",
+  "description": "Tell AutoCare how each run of your automation went: one call, no dependencies.",
+  "license": "MIT",
+  "author": "REWORKIO",
+  "main": "lib/index.js",
+  "bin": { "autocare-heartbeat": "bin/cli.js" },
+  "files": ["bin", "lib"],
+  "engines": { "node": ">=18" },
+  "scripts": { "test": "node --test" },
+  "repository": { "type": "git", "url": "git+https://github.com/reworkio/autocare-heartbeat.git", "directory": "js" },
+  "keywords": ["autocare", "heartbeat", "monitoring", "automation", "n8n", "make"]
+}
