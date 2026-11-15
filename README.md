@@ -10,7 +10,7 @@ AutoCare monitors an automation after it is delivered. It knows the automation i
 - **A wrapper** that times your function and reports the outcome for you.
 - **Safe by default:** a heartbeat that cannot be sent never breaks your automation. It retries a network failure or a server error, then gives up quietly and tells you why.
 - **The secret stays secret:** the heartbeat address contains your monitor's secret, and it is never logged or put in an error message.
-- **No dependencies:** JavaScript (Node 18 or later), Python (3.9 or later, standard library only), a command-line tool, and a `curl` line for anything else that can send a web request.
+- **No dependencies:** JavaScript (Node 18 or later), Python (3.9 or later, standard library only), a command-line tool, a `curl` line, and a ping address for tools that can only open a web address.
 
 ## Before you start
 
@@ -89,6 +89,19 @@ curl -fsS -X POST "$AUTOCARE_HEARTBEAT_URL" \
   -H 'Content-Type: application/json' \
   -d '{"status":"success","latency_ms":840}'
 ```
+
+## No code at all: the ping address
+
+If your tool can open a web address but cannot send a JSON body, add `/ping` or `/fail` to the end of the heartbeat address:
+
+```bash
+curl -fsS "$AUTOCARE_HEARTBEAT_URL/ping"                           # the run succeeded
+curl -fsS "$AUTOCARE_HEARTBEAT_URL/fail?message=CRM+said+401"      # the run failed
+```
+
+Both work as a plain GET or a POST, with no body. Add `?latency_ms=840` to either to say how long the run took. A failure message is kept to 500 characters.
+
+A chat app or mail scanner that fetches the address to preview a pasted link is not counted as a run. Treat the address as a password all the same.
 
 ## What is sent
 
